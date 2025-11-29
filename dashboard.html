@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Donors - DONEX</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>DONEX</h1>
+                <p>Connecting Life Savers</p>
+            </div>
+            <nav>
+                <span id="userInfo" class="user-info"></span>
+                <button id="logoutBtn" class="btn-secondary">Logout</button>
+            </nav>
+        </header>
+
+        <main class="dashboard">
+            <section class="search-section">
+                <h2>Find Blood Donors</h2>
+                <div id="locationStatus" class="location-status" style="display: none;">
+                    <span id="locationIcon">📍</span>
+                    <span id="locationText">Getting your location...</span>
+                </div>
+                <div class="search-form">
+                    <div class="form-group">
+                        <label for="searchBloodType">Blood Type Needed</label>
+                        <select id="searchBloodType">
+                            <option value="">All Blood Types</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="searchRadius">Search Radius (km)</label>
+                        <input type="number" id="searchRadius" value="10" min="1" max="100">
+                    </div>
+                    <button id="searchBtn" class="btn-primary">Search Donors</button>
+                </div>
+            </section>
+
+            <section class="results-section">
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+
+                <div class="donors-list">
+                    <h3>Available Donors</h3>
+                    <div id="donorsList"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 DONEX. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="dashboard.js"></script>
+</body>
