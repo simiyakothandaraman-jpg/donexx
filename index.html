@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +17,14 @@
             <nav>
                 <button id="loginBtn" class="btn-primary">Login</button>
                 <button id="registerBtn" class="btn-secondary">Register</button>
+                <button id="dashboardBtn" class="btn-primary" style="display: none;">Dashboard</button>
+                <button id="logoutBtn" class="btn-secondary" style="display: none;">Logout</button>
+                <span id="userInfo" class="user-info" style="display: none;"></span>
             </nav>
         </header>
 
-        <main>
+        <!-- Home Page -->
+        <main id="homePage">
             <section class="hero">
                 <h2>Find Blood Donors Near You</h2>
                 <p>Join our network of life savers and help those in need</p>
@@ -43,55 +46,147 @@
             </section>
         </main>
 
-        <footer>
-            <p>&copy; 2025 DONEX. All rights reserved.</p>
-        </footer>
-    </div>
+        <!-- Login Page -->
+        <div id="loginPage" class="auth-container" style="display: none;">
+            <div class="auth-box">
+                <div class="logo-center">
+                    <h1>DONEX</h1>
+                    <p>Welcome Back</p>
+                </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DONEX - Blood Donor Network</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <h1>DONEX</h1>
-                <p>Connecting Life Savers</p>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" name="email" required placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" name="password" required placeholder="Enter your password">
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-full">Login</button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+                    <p><a href="#" id="backToHomeFromLogin">Back to Home</a></p>
+                </div>
+
+                <div id="loginMessage" class="message"></div>
             </div>
-            <nav>
-                <button id="loginBtn" class="btn-primary">Login</button>
-                <button id="registerBtn" class="btn-secondary">Register</button>
-            </nav>
-        </header>
+        </div>
 
-        <main>
-            <section class="hero">
-                <h2>Find Blood Donors Near You</h2>
-                <p>Join our network of life savers and help those in need</p>
+        <!-- Register Page -->
+        <div id="registerPage" class="auth-container" style="display: none;">
+            <div class="auth-box register-box">
+                <div class="logo-center">
+                    <h1>DONEX</h1>
+                    <p>Join Our Network</p>
+                </div>
+
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="regName">Full Name</label>
+                        <input type="text" id="regName" name="name" required placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regEmail">Email</label>
+                        <input type="email" id="regEmail" name="email" required placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPassword">Password</label>
+                        <input type="password" id="regPassword" name="password" required placeholder="Create a password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regAge">Age</label>
+                        <input type="number" id="regAge" name="age" required min="18" max="65" placeholder="Enter your age">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regBloodType">Blood Type</label>
+                        <select id="regBloodType" name="bloodType" required>
+                            <option value="">Select Blood Type</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regAddress">Address</label>
+                        <textarea id="regAddress" name="address" required rows="3" placeholder="Enter your full address"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPhone">Phone Number</label>
+                        <input type="tel" id="regPhone" name="phone" required placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="regIsDonor" name="isDonor">
+                        <label for="regIsDonor">I want to be a blood donor</label>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-full">Register</button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
+                    <p><a href="#" id="backToHomeFromRegister">Back to Home</a></p>
+                </div>
+
+                <div id="registerMessage" class="message"></div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <main id="dashboardPage" class="dashboard" style="display: none;">
+            <section class="search-section">
+                <h2>Find Blood Donors</h2>
+                <div id="locationStatus" class="location-status" style="display: none;">
+                    <span id="locationIcon">📍</span>
+                    <span id="locationText">Getting your location...</span>
+                </div>
+                <div class="search-form">
+                    <div class="form-group">
+                        <label for="searchBloodType">Blood Type Needed</label>
+                        <select id="searchBloodType">
+                            <option value="">All Blood Types</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="searchRadius">Search Radius (km)</label>
+                        <input type="number" id="searchRadius" value="10" min="1" max="100">
+                    </div>
+                    <button id="searchBtn" class="btn-primary">Search Donors</button>
+                </div>
             </section>
 
-            <section class="features">
-                <div class="feature-card">
-                    <h3>🩸 Find Donors</h3>
-                    <p>Search for blood donors by blood type and location</p>
+            <section class="results-section">
+                <div class="map-container">
+                    <div id="map"></div>
                 </div>
-                <div class="feature-card">
-                    <h3>📍 Location Map</h3>
-                    <p>View donors on an interactive map with distance calculations</p>
-                </div>
-                <div class="feature-card">
-                    <h3>⚡ Quick Response</h3>
-                    <p>Connect with donors instantly in emergencies</p>
+
+                <div class="donors-list">
+                    <h3>Available Donors</h3>
+                    <div id="donorsList"></div>
                 </div>
             </section>
         </main>
@@ -101,7 +196,7 @@
         </footer>
     </div>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
->>>>>>> 02cae10ea05db6cd60c7ac1cdf0c8cba11f69f9c
